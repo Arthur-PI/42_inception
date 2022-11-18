@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  webserver:
+    build: ./nginx
+    image: apigeon/nginx
+    ports:
+      - 8080:443
+    restart: always
+    volumes:
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - ./nginx/cert/:/etc/ssl/:ro
