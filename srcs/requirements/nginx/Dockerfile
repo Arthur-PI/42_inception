@@ -13,6 +13,4 @@ RUN openssl req -x509 -newkey rsa:4096 -keyout "/etc/cert/$DOMAIN/key.pem" -out 
 
 COPY ./nginx.conf /etc/nginx/sites-available/default
 
-EXPOSE 443
-
 CMD ["nginx", "-g", "daemon off;"]

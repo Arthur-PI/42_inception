@@ -14,8 +14,6 @@ services:
       - WORDPRESS_DATABASE
       - WORDPRESS_USER
       - WORDPRESS_PASSWD
-    # ports:
-    #   - 3306:3306
     volumes:
       - mariadb:/var/lib/mysql
   wordpress:
@@ -25,8 +23,10 @@ services:
     networks:
       - inception
     restart: always
-    # ports:
-    #   - 9000:9000
+    environment:
+      - WORDPRESS_DATABASE
+      - WORDPRESS_USER
+      - WORDPRESS_PASSWD
     volumes:
       - wordpress:/var/www/html/wordpress
     depends_on:

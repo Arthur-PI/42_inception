@@ -32,6 +32,6 @@ clean: down
 	docker volume rm mariadb
 	docker volume rm wordpress
 
-re: down start
+re: clean start
 
 .PHONY: start stop restart build clean
