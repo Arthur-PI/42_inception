@@ -1,12 +1,41 @@
 version: '3'
 
+name: inception
 services:
-  webserver:
-    build: ./requirements/nginx
-    image: apigeon/nginx
-    ports:
-      - 8080:443
+  mariadb:
+    container_name: mariadb
+    image: apigeon/mariadb
+    build: requirements/mariadb
+    networks:
+      - inception
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWD
+      - WORDPRESS_DATABASE
+      - WORDRESS_USER
+      - WORDPRESS_PASSWD
+    volumes:
+      - mariadb:/var/lib/mysql
+  wordpress:
+    container_name: wordpress
+    image: apigeon/wordpress
+    build: requirements/wordpress
+    networks:
+      - inception
     restart: always
     volumes:
-      - ./requirements/nginx/conf/:/etc/nginx/conf.d/:ro
-      - ./requirements/nginx/cert/:/etc/ssl/:ro
+      - wordpress:/var/www/html/wordpress
+    depends_on:
+      - mariadb
+
+volumes:
+  mariadb:
+    name: mariadb
+    driver: local
+  wordpress:
+    name: wordpress
+    driver: local
+
+networks:
+  inception:
+    driver: bridge

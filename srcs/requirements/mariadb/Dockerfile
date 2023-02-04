@@ -10,7 +10,8 @@ RUN sh /tmp/setup_script.sh ; rm /tmp/setup_script.sh
 
 COPY ./docker-entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-# EXPOSE 3306
+
+EXPOSE 3306
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["mysqld"]
