@@ -3,10 +3,16 @@
 FROM debian:buster-slim
 
 RUN apt-get update && apt-get upgrade
-RUN apt-get install -y nginx
+RUN apt-get install -y nginx openssl
 
-COPY conf 
+ARG DOMAIN
 
-EXPOSE 80 443
+RUN mkdir -p "/etc/cert/$DOMAIN"
+
+RUN openssl req -x509 -newkey rsa:4096 -keyout "/etc/cert/$DOMAIN/key.pem" -out "/etc/cert/$DOMAIN/cert.pem" -sha256 -days 365 -nodes -subj "/CN=$DOMAIN"
+
+COPY ./nginx.conf /etc/nginx/sites-available/default
+
+EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]

@@ -12,8 +12,10 @@ services:
     environment:
       - MARIADB_ROOT_PASSWD
       - WORDPRESS_DATABASE
-      - WORDRESS_USER
+      - WORDPRESS_USER
       - WORDPRESS_PASSWD
+    # ports:
+    #   - 3306:3306
     volumes:
       - mariadb:/var/lib/mysql
   wordpress:
@@ -23,10 +25,28 @@ services:
     networks:
       - inception
     restart: always
+    # ports:
+    #   - 9000:9000
     volumes:
       - wordpress:/var/www/html/wordpress
     depends_on:
       - mariadb
+  nginx:
+    container_name: nginx
+    image: apigeon/nginx
+    build:
+      context: requirements/nginx
+      args:
+        - DOMAIN
+    networks:
+      - inception
+    restart: always
+    ports:
+      - 8080:443
+    volumes:
+      - wordpress:/var/www/html/wordpress
+    depends_on:
+      - wordpress
 
 volumes:
   mariadb:

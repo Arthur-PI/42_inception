@@ -26,7 +26,7 @@ RUN wget https://wordpress.org/latest.zip -O /tmp/wordpress.zip
 RUN unzip /tmp/wordpress.zip -d /tmp/wordpress ; rm /tmp/wordpress.zip
 RUN mv /tmp/wordpress/* /var/www/html
 
-RUN sed -i bak 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 0.0.0.0:9000/g' /etc/php/7.3/fpm/pool.d
+RUN sed -ie 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 0.0.0.0:9000/g' /etc/php/7.3/fpm/pool.d/www.conf
 
 COPY docker-entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh

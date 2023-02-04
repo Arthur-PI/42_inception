@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-COMPOSE = docker compose -f srcs/docker-compose.yml
+COMPOSE = docker compose -f srcs/docker-compose.yml --env-file srcs/.env
 
 start:	build
 	$(COMPOSE) up -d
@@ -29,5 +29,9 @@ build:
 
 clean: down
 	$(COMPOSE) rm
+	docker volume rm mariadb
+	docker volume rm wordpress
+
+re: down start
 
 .PHONY: start stop restart build clean
