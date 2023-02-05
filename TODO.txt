@@ -1,0 +1,3 @@
+Set the volumes path to:
+- /home/apigeon/data/mariadb
+- /home/apigeon/data/wordpress

@@ -5,7 +5,13 @@ services:
   mariadb:
     container_name: mariadb
     image: apigeon/mariadb
-    build: requirements/mariadb
+    build: 
+      context: requirements/mariadb
+      args:
+        - MARIADB_ROOT_PASSWD
+        - WORDPRESS_DATABASE
+        - WORDPRESS_USER
+        - WORDPRESS_PASSWD
     networks:
       - inception
     restart: always
@@ -42,7 +48,7 @@ services:
       - inception
     restart: always
     ports:
-      - 8080:443
+      - 443:443
     volumes:
       - wordpress:/var/www/html/wordpress
     depends_on:
