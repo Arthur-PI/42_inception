@@ -6,7 +6,7 @@ sed -ie "s/\$MYSQL_DATABASE/$MYSQL_DATABASE/g" /var/www/html/wordpress/wp-config
 sed -ie "s/\$MYSQL_HOST/$MYSQL_HOST/g" /var/www/html/wordpress/wp-config.php
 
 echo "Installing WordPress website..."
-wp core install --url='localhost' --title="$WORDPRESS_SITE_TITLE" \
+wp core install --url='apigeon.42.fr' --title="$WORDPRESS_SITE_TITLE" \
   --admin_user="$WORDPRESS_ADMIN_USER" --admin_password="$WORDPRESS_ADMIN_PASSWD" \
   --admin_email="$WORDPRESS_ADMIN_EMAIL" --allow-root
 
