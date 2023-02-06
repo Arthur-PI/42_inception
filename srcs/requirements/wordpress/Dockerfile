@@ -15,6 +15,7 @@ RUN apt install -y ghostscript \
                 php-xml \
                 php-zip \
                 php-fpm \
+                php-redis \
                 wget \
                 unzip \
                 vim \
@@ -41,6 +42,7 @@ RUN curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 COPY docker-entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+WORKDIR /var/www/html/wordpress
 
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["/usr/sbin/php-fpm7.3", "-F"]

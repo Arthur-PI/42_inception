@@ -18,7 +18,6 @@ define('DB_CHARSET', 'utf8');
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
 
-
 define('AUTH_KEY',         '7;jiiCb0I-NyF%g>/r(e07JgbRpMaGsR_fzk@Meh+:4Tx%d,FJY7fGPWDD{c%BxX');
 define('SECURE_AUTH_KEY',  'aC,VN^TZ>kZ=TB|~@K9}rauU?qgd|DTCntV=Z:B-m)F5<)--5E<X|mT>L2)NfT:*');
 define('LOGGED_IN_KEY',    'lK|p!sac8lA7<z+61YW346z${|;Crg)T.+u-).U#?2++Sw;K@q1Y|_9jg@-Z,yoI');
@@ -31,6 +30,18 @@ define('NONCE_SALT',       'yk*5gp|Gtp-?EYdpjcke_WsY.cAb_3$e<,fO)3/KA:Q5`:m[IXIS
 $table_prefix  = 'wp_';
 
 define('WP_DEBUG', false);
+
+/** --- BONUS --- */
+define('WP_CACHE', true);
+define('WP_CACHE_KEY_SALT', 'apigeon.42.fr');
+
+define('WP_REDIS_HOST', 'redis');
+define('WP_REDIS_PORT', 6379);
+define('WP_REDIS_TIMEOUT', 1);
+define('WP_REDIS_READ_TIMEOUT', 1);
+
+define( 'WP_REDIS_DATABASE', 0);
+/** --- BONUS --- */
 
 if (!defined('ABSPATH')) {
     define('ABSPATH', __DIR__ . '/');

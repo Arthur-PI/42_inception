@@ -13,8 +13,7 @@ RUN mkdir -p /var/www/html/wordpress
 RUN groupadd sftp && \
     adduser "$FTP_USER" --disabled-password && \
     usermod -aG sftp "$FTP_USER" && \
-    echo "$FTP_USER:$FTP_PASSWD" | chpasswd && \
-    chown -R "$FTP_USER":sftp /var/www/html/wordpress
+    echo "$FTP_USER:$FTP_PASSWD" | chpasswd
 
 COPY ./vsftpd.conf /etc/vsftpd.conf
 

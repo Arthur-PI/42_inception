@@ -37,6 +37,7 @@ services:
       - wordpress:/var/www/html/wordpress
     depends_on:
       - mariadb
+      - redis
   nginx:
     container_name: nginx
     image: apigeon/nginx
@@ -53,7 +54,7 @@ services:
       - wordpress:/var/www/html/wordpress
     depends_on:
       - wordpress
-
+  # --- BONUS ---
   ftp:
     container_name: ftp
     image: apigeon/ftp
@@ -72,6 +73,16 @@ services:
       - wordpress:/var/www/html/wordpress
     depends_on:
       - wordpress
+  redis:
+    container_name: redis
+    image: apigeon/redis
+    build: requirements/bonus/redis
+    networks:
+      - inception
+    restart: always
+    volumes:
+      - redis:/var/lib/redis
+  # --- BONUS ---
 
 volumes:
   mariadb:
@@ -79,6 +90,9 @@ volumes:
     driver: local
   wordpress:
     name: wordpress
+    driver: local
+  redis:
+    name: redis
     driver: local
 
 networks:
