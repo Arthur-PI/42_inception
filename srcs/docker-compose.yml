@@ -12,6 +12,9 @@ services:
         - MYSQL_USER
         - MYSQL_USER_PASSWD
         - MYSQL_DATABASE
+        - MYSQL_GITEA_USER
+        - MYSQL_GITEA_PASSWD
+        - MYSQL_GITEA_DATABASE
     networks:
       - inception
     restart: always
@@ -94,6 +97,31 @@ services:
     depends_on:
       - mariadb
       - wordpress
+  static:
+    container_name: static
+    image: apigeon/static
+    build: requirements/bonus/static
+    restart: always
+    networks:
+      - inception
+  gitea:
+    container_name: gitea
+    image: apigeon/gitea
+    build: requirements/bonus/gitea
+    environment:
+      - MYSQL_GITEA_USER
+      - MYSQL_GITEA_PASSWD
+      - MYSQL_GITEA_DATABASE
+      - MYSQL_HOST=mariadb
+    restart: always
+    networks:
+      - inception
+    ports:
+      - 3000:3000
+    volumes:
+      - gitea:/var/lib/gitea
+    depends_on:
+      - mariadb
   # --- BONUS ---
 
 volumes:
@@ -105,6 +133,9 @@ volumes:
     driver: local
   redis:
     name: redis
+    driver: local
+  gitea:
+    name: gitea
     driver: local
 
 networks:
