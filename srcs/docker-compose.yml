@@ -8,18 +8,13 @@ services:
     build: 
       context: requirements/mariadb
       args:
-        - MARIADB_ROOT_PASSWD
-        - WORDPRESS_DATABASE
-        - WORDPRESS_USER
-        - WORDPRESS_PASSWD
+        - MYSQL_ROOT_PASSWD
+        - MYSQL_USER
+        - MYSQL_USER_PASSWD
+        - MYSQL_DATABASE
     networks:
       - inception
     restart: always
-    environment:
-      - MARIADB_ROOT_PASSWD
-      - WORDPRESS_DATABASE
-      - WORDPRESS_USER
-      - WORDPRESS_PASSWD
     volumes:
       - mariadb:/var/lib/mysql
   wordpress:
@@ -30,9 +25,14 @@ services:
       - inception
     restart: always
     environment:
-      - WORDPRESS_DATABASE
-      - WORDPRESS_USER
-      - WORDPRESS_PASSWD
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_USER_PASSWD
+      - MYSQL_HOST=mariadb
+      - WORDPRESS_ADMIN_USER
+      - WORDPRESS_ADMIN_PASSWD
+      - WORDPRESS_ADMIN_EMAIL
+      - WORDPRESS_SITE_TITLE
     volumes:
       - wordpress:/var/www/html/wordpress
     depends_on:
@@ -43,12 +43,31 @@ services:
     build:
       context: requirements/nginx
       args:
-        - DOMAIN
+        - NGINX_DOMAIN
     networks:
       - inception
     restart: always
     ports:
       - 443:443
+    volumes:
+      - wordpress:/var/www/html/wordpress
+    depends_on:
+      - wordpress
+
+  ftp:
+    container_name: ftp
+    image: apigeon/ftp
+    build:
+      context: requirements/bonus/ftp
+      args:
+        - FTP_USER
+        - FTP_PASSWD
+    networks:
+      - inception
+    restart: always
+    ports:
+      - 2121:21
+      # - 2122-2221:2122-2221
     volumes:
       - wordpress:/var/www/html/wordpress
     depends_on:

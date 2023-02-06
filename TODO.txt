@@ -4,4 +4,11 @@ Set the volumes path to:
 
 Setup the domain name apigeon.42.fr in /etc/hosts
 
-Make bonuses
+Check that ftp works on the linux machine wihtout thw pasv options
+
+Make bonuses :
+- [x] ftp server
+- [ ] redis cache
+- [ ] adminer
+- [ ] static website
+- [ ] any other service

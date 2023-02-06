@@ -5,11 +5,11 @@ FROM debian:buster-slim
 RUN apt-get update && apt-get upgrade
 RUN apt-get install -y nginx openssl
 
-ARG DOMAIN
+ARG NGINX_DOMAIN
 
-RUN mkdir -p "/etc/cert/$DOMAIN"
+RUN mkdir -p "/etc/cert/$NGINX_DOMAIN"
 
-RUN openssl req -x509 -newkey rsa:4096 -keyout "/etc/cert/$DOMAIN/key.pem" -out "/etc/cert/$DOMAIN/cert.pem" -sha256 -days 365 -nodes -subj "/CN=$DOMAIN"
+RUN openssl req -x509 -newkey rsa:4096 -keyout "/etc/cert/$NGINX_DOMAIN/key.pem" -out "/etc/cert/$NGINX_DOMAIN/cert.pem" -sha256 -days 365 -nodes -subj "/CN=$NGINX_DOMAIN"
 
 COPY ./nginx.conf /etc/nginx/sites-available/default
 

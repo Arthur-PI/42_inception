@@ -4,18 +4,18 @@ FROM debian:buster
 RUN apt update && apt upgrade -y
 RUN apt install mariadb-server mariadb-client -y
 
-ARG MARIADB_ROOT_PASSWD
-ARG WORDPRESS_DATABASE
-ARG WORDPRESS_USER
-ARG WORDPRESS_PASSWD
+ARG MYSQL_ROOT_PASSWD
+ARG MYSQL_USER
+ARG MYSQL_USER_PASSWD
+ARG MYSQL_DATABASE
 
 RUN service mysql start; \
-    mariadb -e "UPDATE mysql.user SET Password = PASSWORD('$MARIADB_ROOT_PASSWD') WHERE User = 'root';"; \
+    mariadb -e "UPDATE mysql.user SET Password = PASSWORD('$MYSQL_ROOT_PASSWD') WHERE User = 'root';"; \
     mariadb -e "DELETE FROM mysql.user WHERE USER = '';"; \
     mariadb -e "DROP DATABASE IF EXISTS test;"; \
-    mariadb -e "CREATE DATABASE $WORDPRESS_DATABASE;"; \
-    mariadb -e "CREATE USER '$WORDPRESS_USER'@'%' IDENTIFIED BY '$WORDPRESS_PASSWD';"; \
-    mariadb -e "GRANT ALL ON $WORDPRESS_DATABASE.* TO '$WORDPRESS_USER'@'%' IDENTIFIED BY '$WORDPRESS_PASSWD'"; \
+    mariadb -e "CREATE DATABASE $MYSQL_DATABASE;"; \
+    mariadb -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_USER_PASSWD';"; \
+    mariadb -e "GRANT ALL ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_USER_PASSWD'"; \
     mariadb -e "FLUSH PRIVILEGES;"
 
 COPY ./docker-entrypoint.sh /usr/local/bin
