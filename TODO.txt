@@ -1,14 +1,9 @@
 Set the volumes path to:
 - /home/apigeon/data/mariadb
 - /home/apigeon/data/wordpress
+- /home/apigeon/data/redis
+- /home/apigeon/data/gitea
 
 Setup the domain name apigeon.42.fr in /etc/hosts
 
 Check that ftp works on the linux machine wihtout the pasv options
-
-Make bonuses :
-- [x] ftp server
-- [x] redis cache
-- [x] adminer
-- [x] static website
-- [x] any other service (gitea)
