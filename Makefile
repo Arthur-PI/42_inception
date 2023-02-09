@@ -10,9 +10,10 @@
 #                                                                              #
 # **************************************************************************** #
 
-COMPOSE = docker compose -f srcs/docker-compose.yml --env-file srcs/.env
+ENV_FILE = srcs/.env
+COMPOSE = docker compose -f srcs/docker-compose.yml --env-file $(ENV_FILE)
 
-start:	build
+start:	build $(ENV_FILE)
 	$(COMPOSE) up -d
 
 stop:
@@ -21,16 +22,15 @@ stop:
 down:
 	$(COMPOSE) down
 
-restart:
+restart: $(ENV_FILE)
 	$(COMPOSE) restart
 
 build:
 	$(COMPOSE) build
 
 clean: down
-	$(COMPOSE) rm
-	docker volume rm mariadb
-	docker volume rm wordpress
+	$(COMPOSE) stop
+	docker prune --all --volumes
 
 re: clean start
 
