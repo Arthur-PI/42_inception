@@ -29,9 +29,9 @@ build:
 	$(COMPOSE) build
 
 clean: down
-	$(COMPOSE) stop
-	docker prune --all --volumes
+	$(COMPOSE) rm
+	docker system prune -f --volumes
 
-re: clean start
+re: down start
 
 .PHONY: start stop restart build clean

@@ -70,8 +70,8 @@ services:
       - inception
     restart: always
     ports:
-      - 2121:21
-      # - 2122-2221:2122-2221
+      - 21:21
+      - 2100-2110:2100-2110
     volumes:
       - wordpress:/var/www/html/wordpress
     depends_on:
@@ -128,15 +128,31 @@ volumes:
   mariadb:
     name: mariadb
     driver: local
+    # driver_opts:
+      # o: bind
+      # type: none
+      # device: /home/apigeon/data
   wordpress:
     name: wordpress
     driver: local
+    # driver_opts:
+      # o: bind
+      # type: none
+      # device: /home/apigeon/data
   redis:
     name: redis
     driver: local
+    # driver_opts:
+      # o: bind
+      # type: none
+      # device: /home/apigeon/data
   gitea:
     name: gitea
     driver: local
+    # driver_opts:
+      # o: bind
+      # type: none
+      # device: /home/apigeon/data
 
 networks:
   inception:
