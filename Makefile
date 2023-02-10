@@ -30,7 +30,7 @@ build:
 
 clean: down
 	$(COMPOSE) rm
-	docker system prune -f --volumes
+	docker system prune -f --all --volumes
 
 re: down start
 
