@@ -3,8 +3,9 @@
 FROM debian:buster-slim
 
 RUN apt-get update && apt-get upgrade
-RUN apt-get install -y curl nodejs
+RUN apt-get install -y curl
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+RUN apt-get install -y nodejs
 
 RUN curl -fsSL https://get.pnpm.io/install.sh | bash
 
