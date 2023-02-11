@@ -1,9 +1,9 @@
 # Version: 1.0
 FROM debian:buster
 
-RUN apt update && apt upgrade -y
+RUN apt-get update && apt-get upgrade -y
 
-RUN apt install -y ghostscript \
+RUN apt-get install -y ghostscript \
                 php \
                 php-bcmath \
                 php-curl \
