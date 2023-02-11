@@ -1,7 +1,0 @@
-Set the volumes path to:
-- /home/apigeon/data/mariadb
-- /home/apigeon/data/wordpress
-- /home/apigeon/data/redis
-- /home/apigeon/data/gitea
-
-Setup the domain name apigeon.42.fr in /etc/hosts
