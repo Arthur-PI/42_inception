@@ -10,6 +10,8 @@ wp core install --url='apigeon.42.fr' --title="$WORDPRESS_SITE_TITLE" \
   --admin_user="$WORDPRESS_ADMIN_USER" --admin_password="$WORDPRESS_ADMIN_PASSWD" \
   --admin_email="$WORDPRESS_ADMIN_EMAIL" --allow-root
 
+wp user create "$WORDPRESS_AUTHOR" "$WORDPRESS_AUTHOR_EMAIL" --role=author --user_pass="$WORDPRESS_AUTHOR_PASSWD"
+
 echo "Updating WordPress plugins..."
 wp plugin update --all --allow-root
 
