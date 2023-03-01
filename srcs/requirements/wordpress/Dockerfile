@@ -23,14 +23,14 @@ RUN apt-get install -y ghostscript \
                 curl
 
 RUN mkdir -p /run/php
-RUN mkdir -p /var/www/html
+RUN mkdir -p /var/www/
 
 RUN wget https://wordpress.org/latest.zip -O /tmp/wordpress.zip
 RUN unzip /tmp/wordpress.zip -d /tmp/wordpress ; rm /tmp/wordpress.zip
-RUN mv /tmp/wordpress/* /var/www/html
+RUN mv /tmp/wordpress/* /var/www
 RUN rmdir /tmp/wordpress
-COPY ./wp-config.php /var/www/html/wordpress
-RUN chown -R www-data:www-data /var/www/html/wordpress
+COPY ./wp-config.php /var/www/wordpress
+RUN chown -R www-data:www-data /var/www/wordpress
 
 RUN sed -ie 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 0.0.0.0:9000/g' /etc/php/7.3/fpm/pool.d/www.conf
 
@@ -42,7 +42,7 @@ RUN curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 COPY docker-entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-WORKDIR /var/www/html/wordpress
+WORKDIR /var/www/wordpress
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["/usr/sbin/php-fpm7.3", "-F"]

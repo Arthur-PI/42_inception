@@ -1,16 +1,16 @@
 #! /bin/bash
 
-sed -ie "s/\$MYSQL_USER_PASSWD/$MYSQL_USER_PASSWD/g" /var/www/html/wordpress/wp-config.php
-sed -ie "s/\$MYSQL_USER/$MYSQL_USER/g" /var/www/html/wordpress/wp-config.php
-sed -ie "s/\$MYSQL_DATABASE/$MYSQL_DATABASE/g" /var/www/html/wordpress/wp-config.php
-sed -ie "s/\$MYSQL_HOST/$MYSQL_HOST/g" /var/www/html/wordpress/wp-config.php
+sed -ie "s/\$MYSQL_USER_PASSWD/$MYSQL_USER_PASSWD/g" /var/www/wordpress/wp-config.php
+sed -ie "s/\$MYSQL_USER/$MYSQL_USER/g" /var/www/wordpress/wp-config.php
+sed -ie "s/\$MYSQL_DATABASE/$MYSQL_DATABASE/g" /var/www/wordpress/wp-config.php
+sed -ie "s/\$MYSQL_HOST/$MYSQL_HOST/g" /var/www/wordpress/wp-config.php
 
 echo "Installing WordPress website..."
 wp core install --url='apigeon.42.fr' --title="$WORDPRESS_SITE_TITLE" \
   --admin_user="$WORDPRESS_ADMIN_USER" --admin_password="$WORDPRESS_ADMIN_PASSWD" \
   --admin_email="$WORDPRESS_ADMIN_EMAIL" --allow-root
 
-wp user create "$WORDPRESS_AUTHOR" "$WORDPRESS_AUTHOR_EMAIL" --role=author --user_pass="$WORDPRESS_AUTHOR_PASSWD"
+wp user create "$WORDPRESS_AUTHOR" "$WORDPRESS_AUTHOR_EMAIL" --role=author --user_pass="$WORDPRESS_AUTHOR_PASSWD" --allow-root
 
 echo "Updating WordPress plugins..."
 wp plugin update --all --allow-root

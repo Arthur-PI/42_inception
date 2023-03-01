@@ -36,8 +36,11 @@ services:
       - WORDPRESS_ADMIN_PASSWD
       - WORDPRESS_ADMIN_EMAIL
       - WORDPRESS_SITE_TITLE
+      - WORDPRESS_AUTHOR
+      - WORDPRESS_AUTHOR_EMAIL
+      - WORDPRESS_AUTHOR_PASSWD
     volumes:
-      - wordpress:/var/www/html/wordpress
+      - wordpress:/var/www/wordpress
     depends_on:
       - mariadb
       - redis
@@ -54,7 +57,8 @@ services:
     ports:
       - 443:443
     volumes:
-      - wordpress:/var/www/html/wordpress
+      - wordpress:/var/www/wordpress
+      - adminer:/var/www/adminer
     depends_on:
       - wordpress
   # --- BONUS ---
@@ -73,7 +77,7 @@ services:
       - 21:21
       - 2100-2110:2100-2110
     volumes:
-      - wordpress:/var/www/html/wordpress
+      - wordpress:/var/www/wordpress
     depends_on:
       - wordpress
   redis:
@@ -93,7 +97,7 @@ services:
       - inception
     restart: always
     volumes:
-      - wordpress:/var/www/html/wordpress
+      - adminer:/var/www/adminer
     depends_on:
       - mariadb
       - wordpress
@@ -104,6 +108,8 @@ services:
     restart: always
     networks:
       - inception
+    ports:
+      - 3000:3000
   gitea:
     container_name: gitea
     image: apigeon/gitea
@@ -113,11 +119,10 @@ services:
       - MYSQL_GITEA_PASSWD
       - MYSQL_GITEA_DATABASE
       - MYSQL_HOST=mariadb
+      - NGINX_DOMAIN
     restart: always
     networks:
       - inception
-    ports:
-      - 3000:3000
     volumes:
       - gitea:/var/lib/gitea
     depends_on:
@@ -141,18 +146,10 @@ volumes:
       device: $DATA_DIR/wordpress
   redis:
     name: redis
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: $DATA_DIR/redis
   gitea:
     name: gitea
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: $DATA_DIR/gitea
+  adminer:
+    name: adminer
 
 networks:
   inception:

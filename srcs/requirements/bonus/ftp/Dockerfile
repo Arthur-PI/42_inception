@@ -9,7 +9,7 @@ ENV FTP_USER $FTP_USER
 RUN apt-get update && apt-get upgrade
 RUN apt-get install -y vsftpd
 
-RUN mkdir -p /var/www/html/wordpress
+RUN mkdir -p /var/www/wordpress
 RUN groupadd sftp && \
     adduser "$FTP_USER" --disabled-password && \
     usermod -aG sftp "$FTP_USER" && \

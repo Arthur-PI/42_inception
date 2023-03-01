@@ -6,6 +6,7 @@ import styles from '@/styles/Home.module.css'
 import vercel_svg from '@/assets/vercel.svg'
 import next_svg from '@/assets/next.svg'
 import thirteen_svg from '@/assets/thirteen.svg'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -24,7 +25,7 @@ export default function Home() {
             <code className={styles.code}>src/pages/index.tsx</code>
           </p>
           <div>
-            <a
+            <Link
               href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
               target="_blank"
               rel="noopener noreferrer"
@@ -38,7 +39,7 @@ export default function Home() {
                 height={24}
                 priority
               />
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -63,7 +64,7 @@ export default function Home() {
         </div>
 
         <div className={styles.grid}>
-          <a
+          <Link
             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
             className={styles.card}
             target="_blank"
@@ -75,9 +76,9 @@ export default function Home() {
             <p className={inter.className}>
               Find in-depth information about Next.js features and&nbsp;API.
             </p>
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
             className={styles.card}
             target="_blank"
@@ -89,9 +90,9 @@ export default function Home() {
             <p className={inter.className}>
               Learn about Next.js in an interactive course with&nbsp;quizzes!
             </p>
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
             className={styles.card}
             target="_blank"
@@ -103,9 +104,9 @@ export default function Home() {
             <p className={inter.className}>
               Discover and deploy boilerplate example Next.js&nbsp;projects.
             </p>
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
             className={styles.card}
             target="_blank"
@@ -118,7 +119,7 @@ export default function Home() {
               Instantly deploy your Next.js site to a shareable URL
               with&nbsp;Vercel.
             </p>
-          </a>
+          </Link>
         </div>
       </main>
     </>
