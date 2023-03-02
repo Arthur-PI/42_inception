@@ -16,7 +16,9 @@ RUN mkdir -p /static-site
 
 COPY ./my-site /static-site/my-site
 
-RUN cd /static-site/my-site; /root/.local/share/pnpm/pnpm install; /root/.local/share/pnpm/pnpm build
+RUN cd /static-site/my-site && \
+    /root/.local/share/pnpm/pnpm install && \
+    /root/.local/share/pnpm/pnpm build
 
 WORKDIR /static-site/my-site
 
