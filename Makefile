@@ -50,6 +50,9 @@ ps:
 logs:
 	$(COMPOSE) logs
 
+logs.%:
+	$(COMPOSE) logs $*
+
 clean:
 	$(COMPOSE) down -v
 
