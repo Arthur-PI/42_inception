@@ -20,8 +20,8 @@ COMPOSE = $(DOCKER) compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE)
 all: dir build upd
 
 dir:
-	mkdir -p "$(DATA_DIR)/mariadb"
-	mkdir -p "$(DATA_DIR)/wordpress"
+	mkdir -p "$(HOME)/$(DATA_DIR)/mariadb"
+	mkdir -p "$(HOME)/$(DATA_DIR)/wordpress"
 
 upd:	$(ENV_FILE)
 	$(COMPOSE) up -d
@@ -57,7 +57,7 @@ clean:
 	$(COMPOSE) down -v
 
 fclean: clean
-	sudo rm -rf $(DATA_DIR)
+	sudo rm -rf "$(HOME)/$(DATA_DIR)"
 	$(DOCKER) image ls -a -q | xargs $(DOCKER) image rm
 
 re: fclean all

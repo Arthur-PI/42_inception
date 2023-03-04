@@ -136,14 +136,14 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: $DATA_DIR/mariadb
+      device: $HOME/$DATA_DIR/mariadb
   wordpress:
     name: wordpress
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: $DATA_DIR/wordpress
+      device: $HOME/$DATA_DIR/wordpress
   redis:
     name: redis
   gitea:
