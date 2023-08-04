@@ -2,32 +2,19 @@
 FROM debian:buster
 
 RUN apt-get update && apt-get upgrade -y
-RUN apt-get install mariadb-server mariadb-client -y
+RUN apt-get install mariadb-server mariadb-client procps -y
 
-ARG MYSQL_ROOT_PASSWD
-ARG MYSQL_USER
-ARG MYSQL_USER_PASSWD
-ARG MYSQL_DATABASE
-ARG MYSQL_GITEA_USER
-ARG MYSQL_GITEA_PASSWD
-ARG MYSQL_GITEA_DATABASE
+RUN sed -ie 's/bind-address            = 127.0.0.1/bind-address = 0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
 
-RUN service mysql start; \
-    mariadb -e "UPDATE mysql.user SET Password = PASSWORD('$MYSQL_ROOT_PASSWD') WHERE User = 'root';"; \
-    mariadb -e "DELETE FROM mysql.user WHERE USER = '';"; \
-    mariadb -e "DROP DATABASE IF EXISTS test;"; \
-    mariadb -e "CREATE DATABASE $MYSQL_DATABASE;"; \
-    mariadb -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_USER_PASSWD';"; \
-    mariadb -e "GRANT ALL ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_USER_PASSWD'"; \
-    mariadb -e "CREATE DATABASE $MYSQL_GITEA_DATABASE;"; \
-    mariadb -e "CREATE USER '$MYSQL_GITEA_USER'@'%' IDENTIFIED BY '$MYSQL_GITEA_PASSWD';"; \
-    mariadb -e "GRANT ALL ON $MYSQL_GITEA_DATABASE.* TO '$MYSQL_GITEA_USER'@'%' IDENTIFIED BY '$MYSQL_GITEA_PASSWD'"; \
-    mariadb -e "FLUSH PRIVILEGES;"
+RUN mkdir -p /run/mysqld && chown mysql:mysql /run/mysqld
 
 COPY ./docker-entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-RUN sed -ie 's/bind-address            = 127.0.0.1/bind-address = 0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
+VOLUME [/var/lib/mysql]
+EXPOSE 3306
+
+#USER mysql
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["mysqld"]

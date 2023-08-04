@@ -7,17 +7,17 @@ services:
     image: apigeon/mariadb
     build: 
       context: requirements/mariadb
-      args:
-        - MYSQL_ROOT_PASSWD
-        - MYSQL_USER
-        - MYSQL_USER_PASSWD
-        - MYSQL_DATABASE
-        - MYSQL_GITEA_USER
-        - MYSQL_GITEA_PASSWD
-        - MYSQL_GITEA_DATABASE
+    environment:
+      - MYSQL_ROOT_PASSWD
+      - MYSQL_USER
+      - MYSQL_USER_PASSWD
+      - MYSQL_DATABASE
+      - MYSQL_GITEA_USER
+      - MYSQL_GITEA_PASSWD
+      - MYSQL_GITEA_DATABASE
     networks:
       - inception
-    restart: always
+    restart: unless-stopped
     volumes:
       - mariadb:/var/lib/mysql
   wordpress:
@@ -26,7 +26,7 @@ services:
     build: requirements/wordpress
     networks:
       - inception
-    restart: always
+    restart: unless-stopped
     environment:
       - MYSQL_DATABASE
       - MYSQL_USER
@@ -53,12 +53,12 @@ services:
         - NGINX_DOMAIN
     networks:
       - inception
-    restart: always
+    restart: unless-stopped
     ports:
       - 443:443
     volumes:
-      - wordpress:/var/www/wordpress
-      - adminer:/var/www/adminer
+      - wordpress:/var/www/wordpress:ro
+      - adminer:/var/www/adminer:ro
     depends_on:
       - wordpress
   # --- BONUS ---
@@ -72,7 +72,7 @@ services:
         - FTP_PASSWD
     networks:
       - inception
-    restart: always
+    restart: unless-stopped
     ports:
       - 21:21
       - 2100-2110:2100-2110
@@ -86,7 +86,7 @@ services:
     build: requirements/bonus/redis
     networks:
       - inception
-    restart: always
+    restart: unless-stopped
     volumes:
       - redis:/var/lib/redis
   adminer:
@@ -95,7 +95,7 @@ services:
     build: requirements/bonus/adminer
     networks:
       - inception
-    restart: always
+    restart: unless-stopped
     volumes:
       - adminer:/var/www/adminer
     depends_on:
@@ -105,11 +105,9 @@ services:
     container_name: static
     image: apigeon/static
     build: requirements/bonus/static
-    restart: always
+    restart: unless-stopped
     networks:
       - inception
-    ports:
-      - 3000:3000
   gitea:
     container_name: gitea
     image: apigeon/gitea
@@ -120,7 +118,7 @@ services:
       - MYSQL_GITEA_DATABASE
       - MYSQL_HOST=mariadb
       - NGINX_DOMAIN
-    restart: always
+    restart: unless-stopped
     networks:
       - inception
     volumes:

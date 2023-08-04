@@ -1,6 +1,6 @@
 # Version: 1.0
 
-FROM debian:buster-slim
+FROM debian:buster
 
 ARG FTP_PASSWD
 ARG FTP_USER

@@ -1,6 +1,6 @@
 # Version: 1.0
 
-FROM debian:buster-slim
+FROM debian:buster
 
 RUN apt-get update && apt-get upgrade
 RUN apt-get install -y lsb-release redis
