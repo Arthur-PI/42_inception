@@ -28,7 +28,7 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh && \
     chown -R www-data:www-data /var/www/adminer && \
     chown -R www-data:www-data /var/log/php7-fpm && \
     chown -R www-data:www-data /run/php && \
-    chown    www-data:www-data /var/log/php7.3-fpm
+    chown    www-data:www-data /var/log/php7.3-fpm.log
 
 WORKDIR /var/www/adminer
 USER www-data

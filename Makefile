@@ -53,6 +53,9 @@ logs:
 logs.%:
 	$(COMPOSE) logs $*
 
+exec.%:
+	$(COMPOSE) exec -it $* /bin/bash
+
 clean:
 	$(COMPOSE) down -v
 

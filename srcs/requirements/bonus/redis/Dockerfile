@@ -10,5 +10,7 @@ COPY ./redis.conf /etc/redis/redis.conf
 COPY ./docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
+EXPOSE 6379
+
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["redis-server", "/etc/redis/redis.conf"]

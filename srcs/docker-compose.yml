@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 
 name: inception
 services:
@@ -43,8 +43,10 @@ services:
     volumes:
       - wordpress:/var/www/wordpress
     depends_on:
-      - mariadb
-      - redis
+      mariadb:
+        condition: service_healthy
+      redis:
+        condition: service_started
   nginx:
     container_name: nginx
     image: apigeon/nginx
@@ -62,6 +64,9 @@ services:
       - adminer:/var/www/adminer:ro
     depends_on:
       - wordpress
+      - gitea
+      - static
+      - adminer
   # --- BONUS ---
   # ftp:
   #   container_name: ftp
@@ -100,8 +105,8 @@ services:
     volumes:
       - adminer:/var/www/adminer
     depends_on:
-      - mariadb
-      - wordpress
+      mariadb:
+        condition: service_healthy
   static:
     container_name: static
     image: apigeon/static
@@ -125,7 +130,8 @@ services:
     volumes:
       - gitea:/var/lib/gitea
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
   # --- BONUS ---
 
 volumes:

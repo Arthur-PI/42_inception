@@ -14,6 +14,7 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 EXPOSE 3306
 
 #USER mysql
+HEALTHCHECK --interval=10s --timeout=3s CMD mysql -e "SELECT 1" || exit 1
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["mysqld"]

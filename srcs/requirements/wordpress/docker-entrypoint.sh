@@ -63,17 +63,16 @@ setup_wordpress() {
 	wp --allow-root plugin install wp-redis
 	wp --allow-root redis enable
 	# --- BONUS part ---
-	touch /var/www/done
+	touch /var/www/wordpress/done
 }
 
 main() {
-	if [ ! -e /var/www/done ]; then
+	if [ ! -e /var/www/wordpress/done ]; then
 		verify_envs
 		setup_wordpress
 	fi
 	echo "Running php-fpm on port :9000 ..."
-	sleep 1000
-	exec $@
+	exec "$@"
 }
 
-main
+main "$@"

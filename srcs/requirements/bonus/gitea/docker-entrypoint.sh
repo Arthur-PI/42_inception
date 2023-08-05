@@ -7,5 +7,4 @@ sed -i "s/\$MYSQL_HOST/$MYSQL_HOST/g" /home/git/app.ini
 sed -i "s/\$NGINX_DOMAIN/$NGINX_DOMAIN/g" /home/git/app.ini
 
 echo "Gitea running on port :3000"
-
 exec $@
