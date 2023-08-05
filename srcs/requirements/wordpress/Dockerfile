@@ -45,7 +45,8 @@ COPY ./www.conf /etc/php/7.3/fpm/pool.d/www.conf
 RUN chown -R www-data:www-data /run/php && \
     chown -R www-data:www-data /var/www && \
     chown -R www-data:www-data /var/log/php7-fpm && \
-    chown    www-data:www-data /var/log/php7.3-fpm.log
+    chown    www-data:www-data /var/log/php7.3-fpm.log && \
+    chmod -R g+w /var/www/wordpress
 
 COPY docker-entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh

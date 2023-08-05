@@ -60,7 +60,8 @@ clean:
 	$(COMPOSE) down -v
 
 fclean: clean
-	$(DOCKER) system prune -a --volume -f
+	$(DOCKER) system prune -a --volumes -f
+	sudo rm -rf "$(HOME)/$(DATA_DIR)"
 
 re: fclean all
 
