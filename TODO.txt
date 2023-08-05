@@ -1,4 +1,1 @@
 Remove the .env file in the vogsphere repo
-fix wordpress and ftp user ownership problem
-cleanup entrypoints scripts to be more like the mariadb one
-cleanup Dockerfiles and add Volumes and EXPOSE

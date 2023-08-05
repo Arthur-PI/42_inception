@@ -15,7 +15,6 @@ verify_envs() {
 		EOF
 		exit 1
 	fi
-	echo "This sheet succeded"
 }
 
 create_database() {
