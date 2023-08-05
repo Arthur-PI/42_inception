@@ -32,6 +32,7 @@ services:
       - MYSQL_USER
       - MYSQL_USER_PASSWD
       - MYSQL_HOST=mariadb
+      - NGINX_DOMAIN
       - WORDPRESS_ADMIN_USER
       - WORDPRESS_ADMIN_PASSWD
       - WORDPRESS_ADMIN_EMAIL
@@ -62,24 +63,24 @@ services:
     depends_on:
       - wordpress
   # --- BONUS ---
-  ftp:
-    container_name: ftp
-    image: apigeon/ftp
-    build:
-      context: requirements/bonus/ftp
-      args:
-        - FTP_USER
-        - FTP_PASSWD
-    networks:
-      - inception
-    restart: unless-stopped
-    ports:
-      - 21:21
-      - 2100-2110:2100-2110
-    volumes:
-      - wordpress:/var/www/wordpress
-    depends_on:
-      - wordpress
+  # ftp:
+  #   container_name: ftp
+  #   image: apigeon/ftp
+  #   build:
+  #     context: requirements/bonus/ftp
+  #     args:
+  #       - FTP_USER
+  #       - FTP_PASSWD
+  #   networks:
+  #     - inception
+  #   restart: unless-stopped
+  #   ports:
+  #     - 21:21
+  #     - 2100-2110:2100-2110
+  #   volumes:
+  #     - wordpress:/var/www/wordpress
+  #   depends_on:
+  #     - wordpress
   redis:
     container_name: redis
     image: apigeon/redis

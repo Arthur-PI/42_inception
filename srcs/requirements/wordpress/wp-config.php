@@ -33,7 +33,7 @@ define('WP_DEBUG', false);
 
 /** --- BONUS --- */
 define('WP_CACHE', true);
-define('WP_CACHE_KEY_SALT', 'apigeon.42.fr');
+define('WP_CACHE_KEY_SALT', '$NGINX_DOMAIN');
 
 define('WP_REDIS_HOST', 'redis');
 define('WP_REDIS_PORT', 6379);

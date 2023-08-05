@@ -17,16 +17,16 @@ COMPOSE_FILE = srcs/docker-compose.yml
 DOCKER = docker
 COMPOSE = $(DOCKER) compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE)
 
-all: dir build upd
+all: build upd
 
 dir:
 	mkdir -p "$(HOME)/$(DATA_DIR)/mariadb"
 	mkdir -p "$(HOME)/$(DATA_DIR)/wordpress"
 
-upd:	$(ENV_FILE)
+upd:	dir $(ENV_FILE)
 	$(COMPOSE) up -d
 
-up:		$(ENV_FILE)
+up:		dir $(ENV_FILE)
 	$(COMPOSE) up
 
 start:
@@ -57,8 +57,7 @@ clean:
 	$(COMPOSE) down -v
 
 fclean: clean
-	sudo rm -rf "$(HOME)/$(DATA_DIR)"
-	$(DOCKER) image ls -a -q | xargs $(DOCKER) image rm
+	$(DOCKER) system prune -a --volume -f
 
 re: fclean all
 
