@@ -1,5 +1,9 @@
 #! /bin/bash
+set -e
 
-echo "Starting php-fpm on port :9000"
+main() {
+  echo "Starting php-fpm on port :9000"
+  exec "$@"
+}
 
-exec $@
+main "$@"

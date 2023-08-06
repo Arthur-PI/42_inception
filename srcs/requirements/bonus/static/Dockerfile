@@ -25,4 +25,4 @@ WORKDIR /static-site/my-site
 EXPOSE 3000
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["/root/.local/share/pnpm/pnpm start"]
+CMD ["/root/.local/share/pnpm/pnpm", "start"]

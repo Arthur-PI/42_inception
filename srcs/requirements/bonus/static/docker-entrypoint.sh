@@ -1,3 +1,7 @@
 #! /bin/bash
 
-exec $@
+main() {
+  exec "$@"
+}
+
+main "$@"

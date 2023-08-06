@@ -2,7 +2,7 @@
 set -e
 
 validate_envs() {
-	if [[ -z "$MYSQL_GITEA_USER" -o -z "$MYSQL_GITEA_PASSWD" -o -z "$MYSQL_GITEA_DATABASE" -o -z "$MYSQL_HOST" -o -z "$NGINX_DOMAIN" ]]; then
+	if [ -z "$MYSQL_GITEA_USER" -o -z "$MYSQL_GITEA_PASSWD" -o -z "$MYSQL_GITEA_DATABASE" -o -z "$MYSQL_HOST" -o -z "$NGINX_DOMAIN" ]; then
 		cat <<- 'EOF'
 		  Can't start the mysql server without all the env variables:
 		    - MYSQL_ROOT_PASSWD
